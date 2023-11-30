@@ -20,3 +20,6 @@ class TestNewAccount:
         hard = test_account.make_new_akk_hard()
         get_url = driver.current_url
         assert "auth_ecommerce" in get_url
+
+    def test_new_testttt(self):
+        assert 1 == 1
