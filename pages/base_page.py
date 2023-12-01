@@ -1,3 +1,4 @@
+from selenium.common import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as wait
 
@@ -20,7 +21,10 @@ class BasePage:
         self.driver.get(self.url)
 
     def element_is_visible(self, locator, timeout=__timeout):
-        return wait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
+        try:
+            return wait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
+        except TimeoutException:
+            return False
 
     def elements_are_visible(self, locator, timeout=5):
         return wait(self.driver, timeout).until(EC.visibility_of_all_elements_located(locator))

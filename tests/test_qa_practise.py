@@ -1,7 +1,9 @@
+import time
+
 from pages.elements_page import LoginNewAccount
 
 
-class TestNewAccount:
+class TestFormsLogin:
     def test_create_new_account(self, driver):
         test_account = LoginNewAccount(driver, "https://qa-practice.netlify.app/")
         test_account.open()
@@ -21,5 +23,16 @@ class TestNewAccount:
         get_url = driver.current_url
         assert "auth_ecommerce" in get_url
 
-    def test_new_testttt(self):
-        assert 1 == 1
+# Тест, который валится (на проверку)
+    def test_check_all_elements(self, driver):
+        test_account = LoginNewAccount(driver, "https://qa-practice.netlify.app/auth_ecommerce")
+        test_account.open()
+        check_all_elements = test_account.check_all_elements_on_page()
+
+
+# Тест, который заполнит форму на русском языке
+class TestRegister:
+    def test_register_fill(self, driver):
+        test_account = LoginNewAccount(driver, "https://qa-practice.netlify.app/")
+        test_account.open()
+        fill_all_forms = test_account.fill_form_register()
