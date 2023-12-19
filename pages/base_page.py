@@ -1,3 +1,5 @@
+import time
+
 from selenium.common import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as wait
@@ -10,19 +12,27 @@ class BasePage:
         self.driver = driver
         self.url = url
 
-    # @staticmethod
-    # def highlight(element):
-    #     driver = element._parent
-    #
-    #     def apply_style(s):
-    #         driver.execute_script
+    @staticmethod
+    def highlight(element):
+        driver = element._parent
+
+        def apply_style(s):
+            driver.execute_script("arguments[0].setAttribute('style', arguments[1]);", element, s)
+
+        original_style = element.get_attribute('style')
+        apply_style("background: yellow; border: 2px solid red;")
+        time.sleep(.3)
+        apply_style(original_style)
 
     def open(self):
         self.driver.get(self.url)
 
     def element_is_visible(self, locator, timeout=__timeout):
         try:
-            return wait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
+            element = wait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
+            if element:
+                self.highlight(element)
+                return element
         except TimeoutException:
             return False
 
@@ -46,3 +56,9 @@ class BasePage:
 
     def js_executor(self, element, value):
         self.driver.execute_script("arguments[0].setAttribute('value',arguments[1])", element, value)
+
+    def switch_handles_window(self):
+        self.driver.switch_to.window(self.driver.window_handles[1])
+
+    def switch_back_handles_window(self):
+        self.driver.switch_to.window(self.driver.window_handles[0])

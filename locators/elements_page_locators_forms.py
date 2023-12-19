@@ -40,3 +40,9 @@ class FormsRegister:
     REGISTER = (By.XPATH, "//button[@id='registerBtn']")
     TEXT = (By.XPATH, "//div[@class='alert alert-danger']")
 
+
+class RecoverPassword:
+    FORMS = (By.XPATH, "//a[contains(text(), 'Forms')]")
+    RECOVER_PASSWORD = (By.XPATH, "//a[@id='recover-password']")
+    EMAIL = (By.XPATH, "//input[@id='email']")
+    BUTTON = (By.XPATH, "//button[@id='recover-password']")

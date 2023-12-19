@@ -1,8 +1,8 @@
 import time
 
-from locators.elements_page_locators import FormsLogin, CheckButtonsLogin, FormsRegister
+from locators.elements_page_locators_forms import FormsLogin, CheckButtonsLogin, FormsRegister, RecoverPassword
 from pages.base_page import BasePage
-from generator.generator import create_account, register_account
+from generator.generator import create_account, register_account, register_account_fr
 
 
 class LoginNewAccount(BasePage):
@@ -75,3 +75,33 @@ class LoginNewAccount(BasePage):
         self.element_is_visible(FormsRegister.REGISTER).click()
         text = self.element_is_visible(FormsRegister.TEXT).text
         assert text == "The account has been successfully created!"
+
+    def fill_form_register_fr(self):
+        akk = next(register_account_fr())
+        first_name = akk.first_name
+        last_name = akk.last_name
+        phone_number = akk.phone_number
+        email = akk.email
+        password = akk.password
+        self.element_is_visible(FormsRegister.FORMS).click()
+        self.element_is_visible(FormsRegister.REGISTER_B).click()
+        self.element_is_visible(FormsRegister.FIRST_NAME).send_keys(first_name)
+        self.element_is_visible(FormsRegister.LAST_NAME).send_keys(last_name)
+        self.element_is_visible(FormsRegister.PHONE_NUMBER).send_keys(phone_number)
+        self.element_is_visible(FormsRegister.COUNTRY).click()
+        self.element_is_visible(FormsRegister.CHOOSE_COUNTRY).click()
+        self.element_is_visible(FormsRegister.EMAIL).send_keys(email)
+        self.element_is_visible(FormsRegister.PASSWORD).send_keys(password)
+        self.element_is_visible(FormsRegister.AGREE).click()
+        self.element_is_visible(FormsRegister.REGISTER).click()
+        text = self.element_is_visible(FormsRegister.TEXT).text
+        assert text == "The account has been successfully created!"
+
+    def filled_register_password(self):
+        akk = next(register_account())
+        email = akk.email
+        self.element_is_visible(RecoverPassword.FORMS).click()
+        self.element_is_visible(RecoverPassword.RECOVER_PASSWORD).click()
+        self.element_is_visible(RecoverPassword.EMAIL).send_keys(email)
+        self.element_is_visible(RecoverPassword.BUTTON).click()
+

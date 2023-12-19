@@ -14,3 +14,5 @@ class Register:
     phone_number: str = None
     email: str = None
     password: str = None
+
+
