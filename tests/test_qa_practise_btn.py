@@ -1,5 +1,5 @@
 import time
-
+import allure
 from pages.elements_page_btn import Button, Mouse
 
 
@@ -45,4 +45,16 @@ class TestButton:
         test_account = Mouse(driver, "https://qa-practice.netlify.app/")
         test_account.open()
         create = test_account.show_hidden_other_text()
-ё
+
+    # Тест, который проверяет, пропала ли надпись при нажатии кнопки
+    @allure.title("Тест на кнопку")
+    def test_make_text_hidden(self, driver):
+        test_account = Mouse(driver, "https://qa-practice.netlify.app/")
+        test_account.open()
+        hide = test_account.hide_text()
+
+    # Тест, который проверяет, появляется ли надпись при нажатии кнопки
+    def test_show_text(self, driver):
+        test_account = Mouse(driver, "https://qa-practice.netlify.app/")
+        test_account.open()
+        hide = test_account.click_button_show_text()

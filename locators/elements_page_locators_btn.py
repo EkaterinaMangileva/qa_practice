@@ -23,3 +23,10 @@ class MouseHover:
     TEXT = (By.XPATH, "//p[@id='demo']")
     BUTTON = (By.XPATH, "//button[@id='button-hover-over']")
     UNDER_BUTTON_TEXT = (By.XPATH, "//div[@class='hide']")
+
+
+class HideElement:
+    BTN_ACTIONS = (By.XPATH, "//a[@id='actions']")
+    HIDE_ELEMENT = (By.XPATH, "//a[@id='show-hide-elements']")
+    BUTTON = (By.XPATH, "//button[@id='showHideBtn']")
+    HIDDEN_TEXT = (By.XPATH, "//DIV[@id='hiddenText']")

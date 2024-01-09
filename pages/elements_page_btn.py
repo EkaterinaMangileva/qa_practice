@@ -1,4 +1,6 @@
-from locators.elements_page_locators_btn import BtnActions, Scrolling, MouseHover
+import allure
+
+from locators.elements_page_locators_btn import BtnActions, Scrolling, MouseHover, HideElement
 from pages.base_page import BasePage
 from selenium.webdriver import ActionChains
 from collections import Counter
@@ -76,3 +78,24 @@ class Mouse(BasePage):
         text_button = self.elements_are_present(MouseHover.TEXT)
         for words in text_button:
             assert words.text == 'HOVERED'
+
+    @allure.step("Выполнить действия тест кейса")
+    def hide_text(self):
+        self.element_is_visible(HideElement.BTN_ACTIONS).click()
+        self.element_is_visible(HideElement.HIDE_ELEMENT).click()
+        self.element_is_visible(HideElement.BUTTON).click()
+        text = self.element_is_present(HideElement.HIDDEN_TEXT).text
+        assert self.element_is_present(
+            HideElement.HIDDEN_TEXT).text != "This text will be hidden"
+
+    def click_button_show_text(self):
+        self.element_is_visible(HideElement.BTN_ACTIONS).click()
+        self.element_is_visible(HideElement.HIDE_ELEMENT).click()
+        act = ActionChains(self.driver)
+        button = self.element_is_visible(HideElement.BUTTON)
+        act.double_click(on_element=button).perform()
+        text = self.element_is_present(HideElement.HIDDEN_TEXT).text
+        assert self.element_is_present(
+            HideElement.HIDDEN_TEXT).text == "This text will be hidden"
+
+

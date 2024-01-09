@@ -1,5 +1,6 @@
 import time
 
+import allure
 from selenium.common import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait as wait
@@ -24,6 +25,7 @@ class BasePage:
         time.sleep(.3)
         apply_style(original_style)
 
+    @allure.step("Открыть ссылку")
     def open(self):
         self.driver.get(self.url)
 
